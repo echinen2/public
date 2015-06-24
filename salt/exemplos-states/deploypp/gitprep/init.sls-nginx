@@ -1,11 +1,11 @@
-/var/www/.ssh:
+/home/www/.ssh:
   file.directory:
     - user: nginx
     - group: nginx
     - mode: 750
     - makedirs: True
 
-/var/www/.ssh/config:
+/home/www/.ssh/config:
   file.managed:
     - source:
       - salt://gitprep/files/ssh.config
@@ -13,7 +13,7 @@
     - group: nginx
     - mode: 644
 
-/var/www/.ssh/id_rsa:
+/home/www/.ssh/id_rsa:
   file.managed:
     - source:
       - salt://gitprep/files/id_rsa
