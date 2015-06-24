@@ -1,0 +1,42 @@
+{
+  "network": {
+    "servers": [ "172.16.25.93:5000" ],
+    "timeout": 15,
+    "ssl ca": "/etc/pki/tls/certs/logstash-forwarder.crt"
+  },
+  "files": [
+    {
+      "paths": [
+        "/var/log/messages",
+        "/var/log/secure"
+       ],
+      "fields": { "type": "syslog" }
+    },
+    {
+      "paths": [
+        "/mnt/md0/log/nginx/http.access.log"
+       ],
+      "fields": { "type": "http-nginx-access" }
+    },
+    {
+      "paths": [
+        "/mnt/md0/log/nginx/https.access.log"
+       ],
+      "fields": { "type": "https-nginx-access" }
+    },
+    {
+      "paths": [
+        "/mnt/md0/log/nginx/http.error.log",
+        "/mnt/md0/log/nginx/https.error.log"
+       ],
+      "fields": { "type": "http-nginx-error" }
+    },
+    {
+      "paths": [
+        "/mnt/md0/log/varnish/varnish.access.log"
+       ],
+      "fields": { "type": "http-varnish-access" }
+    }
+   ]
+}
+

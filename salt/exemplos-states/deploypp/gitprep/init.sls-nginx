@@ -1,0 +1,32 @@
+/var/www/.ssh:
+  file.directory:
+    - user: nginx
+    - group: nginx
+    - mode: 750
+    - makedirs: True
+
+/var/www/.ssh/config:
+  file.managed:
+    - source:
+      - salt://gitprep/files/ssh.config
+    - user: nginx
+    - group: nginx
+    - mode: 644
+
+/var/www/.ssh/id_rsa:
+  file.managed:
+    - source:
+      - salt://gitprep/files/id_rsa
+    - user: nginx
+    - group: nginx
+    - mode: 600
+
+
+/scripts/tools/git-prep.sh:
+  file.managed:
+    - source:
+      - salt://gitprep/files/git-prep.sh
+    - mode: 755
+
+/scripts/tools/git-prep.sh 123:
+  cmd.run

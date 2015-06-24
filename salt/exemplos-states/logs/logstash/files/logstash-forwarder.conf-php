@@ -1,0 +1,37 @@
+{
+  "network": {
+    "servers": [ "172.16.25.93:5000" ],
+    "timeout": 15,
+    "ssl ca": "/etc/pki/tls/certs/logstash-forwarder.crt"
+  },
+  "files": [
+    {
+      "paths": [
+        "/var/log/messages",
+        "/var/log/secure"
+       ],
+      "fields": { "type": "syslog" }
+    },
+    {
+      "paths": [
+        "/mnt/md0/log/nginx/http.access.log"
+       ],
+      "fields": { "type": "php-nginx-access" }
+    },
+    {
+      "paths": [
+        "/mnt/md0/log/nginx/http.error.log",
+        "/mnt/md0/log/nginx/error.log"
+       ],
+      "fields": { "type": "php-nginx-error" }
+    },
+    {
+      "paths": [
+        "/mnt/md0/log/php/php-fpm-error.log",
+        "/mnt/md0/log/php/errors.log"
+       ],
+      "fields": { "type": "php-phpfpm-error" }
+    }
+   ]
+}
+

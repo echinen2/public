@@ -1,0 +1,2 @@
+# Rotaciona os logs para o S3
+30 23 * * * root /scripts/logrotate-brlink/logrotate-brlink.sh ; /etc/init.d/nginx reload ; chown php.php /mnt/md0/log/php/errors.log ; /etc/init.d/php-fpm reload > /dev/null 2> /dev/null

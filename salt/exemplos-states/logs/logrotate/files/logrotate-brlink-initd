@@ -1,0 +1,50 @@
+#!/bin/bash
+#
+# logrotate-brlink      This shell script takes care of starting and stopping
+#
+# chkconfig: - 80 50
+# description: Script para rotacionar logs para S3
+#
+
+start() {
+	touch /var/lock/subsys/logrotate-brlink
+        return 0
+}
+
+stop() {
+	/scripts/logrotate-brlink/logrotate-brlink.sh 
+	/scripts/logrotate-brlink/upload_broken_to_s3.sh
+	rm -f  /var/lock/subsys/logrotate-brlink
+        return 1
+}
+
+# See how we were called.
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        stop
+        start
+        RETVAL=$?
+        ;;
+  condrestart)
+        if [ -f /var/lock/subsys/$prog ]; then
+            stop
+            start
+            RETVAL=$?
+        fi
+        ;;
+  status)
+        status $prog
+        RETVAL=$?
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+        exit 2
+esac
+
+exit $RETVAL
